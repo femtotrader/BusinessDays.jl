@@ -272,3 +272,8 @@ cal_dict = Dict(gen_1 => "hey")
 
 # Broadcast
 @test BusinessDays.tobday.(BusinessDays.WeekendsOnly(), [Dates.Date(2019, 8, 30), Dates.Date(2019, 8, 31), Dates.Date(2019, 9, 1), Dates.Date(2019, 9, 2)]) == [Dates.Date(2019, 8, 30), Dates.Date(2019, 9, 2), Dates.Date(2019, 9, 2), Dates.Date(2019, 9, 2)]
+
+#########################
+# BDay Type Tests
+#########################
+include("bday_tests.jl")

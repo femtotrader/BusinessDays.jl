@@ -150,6 +150,10 @@ julia> advancebdays(:USSettlement, Date(2015, 1, 2), 1)
 julia> advancebdays(:USSettlement, Date(2015, 1, 2), -1)
 2014-12-31
 
+# We can use BDay type as a convenience for advancebdays
+julia> Date(2015, 1, 2) + BDay(5, :USNYSE)
+2015-01-09
+
 # counts the number of business days between dates
 julia> bdays(:USSettlement, Date(2014, 12, 31), Date(2015, 1, 5))
 2 days
@@ -174,6 +178,34 @@ julia> bdays(:USSettlement, [Date(2014,12,31),Date(2015,1,2)], [Date(2015,1,5),D
 ```
 
 See *runtests.jl* for more examples.
+
+## `BDay` Type
+
+As shown in the tutorial above, a `BDay <: Dates.DatePeriod` can be used for convenience. This is to try to replicate date arithmetic as done in `Dates`. Under the hood, the date arithmetic is based on `advancebdays` so results should be the same between the two. 
+
+!!! warning "Differences between `BDay` and `Day` style arithmetic"
+    Note that because `advancebdays` always returns a `Date`, there is a different behavior when comparing against how `Dates.Day` arithmetic is performed on non-`Date` types such as `DateTime`. 
+
+    ```julia
+    julia> using BusinessDays, Dates
+
+    julia> d = Day(5)
+    5 days
+
+    julia> bd = BDay(5, :USNYSE)
+    5 business days (USNYSE)
+
+    julia> dt = DateTime(2015, 1, 1, 12, 30)
+    2015-01-01T12:30:00
+
+    # Returns DateTime
+    julia> dt + d
+    2015-01-06T12:30:00
+
+    # Returns Date
+    julia> dt + bd
+    2025-01-09
+    ```
 
 ## Available Business Days Calendars
 

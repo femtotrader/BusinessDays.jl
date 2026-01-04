@@ -12,7 +12,8 @@ import Dates
 export
     HolidayCalendar,
     CompositeHolidayCalendar,
-    GenericHolidayCalendar
+    GenericHolidayCalendar,
+    BDay
 
 # exported functions
 export
@@ -33,6 +34,7 @@ include("dateutils.jl")
 include("holidaycalendar.jl")
 include("bdayscache.jl")
 include("bdays.jl")
+include("bday.jl")
 include("bdaysvecfun.jl")
 include("composite.jl")
 include("query.jl")
