@@ -68,14 +68,14 @@ Base.hash(bd::BDay, h::UInt) = hash(calendar(bd), hash(Dates.value(bd), h))
 
 # Comparison (same calendar only)
 function Base.isless(bd1::BDay{C}, bd2::BDay{C}) where {C<:HolidayCalendar}
-    calendar(bd1) == calendar(bd2) || throw(ArgumentError(LazyString(
-        "Cannot compare BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    calendar(bd1) == calendar(bd2) || throw(ArgumentError(
+        "Cannot compare BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
     return Dates.value(bd1) < Dates.value(bd2)
 end
 
 function Base.isless(bd1::BDay, bd2::BDay)
-    throw(ArgumentError(LazyString(
-        "Cannot compare BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    throw(ArgumentError(
+        "Cannot compare BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
 end
 
 # Negation
@@ -83,28 +83,28 @@ Base.:(-)(bd::BDay) = BDay(-Dates.value(bd), calendar(bd))
 
 # BDay + BDay (same calendar type)
 function Base.:(+)(bd1::BDay{C}, bd2::BDay{C}) where {C<:HolidayCalendar}
-    calendar(bd1) == calendar(bd2) || throw(ArgumentError(LazyString(
-        "Cannot add BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    calendar(bd1) == calendar(bd2) || throw(ArgumentError(
+        "Cannot add BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
     return BDay(Dates.value(bd1) + Dates.value(bd2), calendar(bd1))
 end
 
 # BDay + BDay (different calendar types - always error)
 function Base.:(+)(bd1::BDay, bd2::BDay)
-    throw(ArgumentError(LazyString(
-        "Cannot add BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    throw(ArgumentError(
+        "Cannot add BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
 end
 
 # BDay - BDay (same calendar type)
 function Base.:(-)(bd1::BDay{C}, bd2::BDay{C}) where {C<:HolidayCalendar}
-    calendar(bd1) == calendar(bd2) || throw(ArgumentError(LazyString(
-        "Cannot subtract BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    calendar(bd1) == calendar(bd2) || throw(ArgumentError(
+        "Cannot subtract BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
     return BDay(Dates.value(bd1) - Dates.value(bd2), calendar(bd1))
 end
 
 # BDay - BDay (different calendar types - always error)
 function Base.:(-)(bd1::BDay, bd2::BDay)
-    throw(ArgumentError(LazyString(
-        "Cannot subtract BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    throw(ArgumentError(
+        "Cannot subtract BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
 end
 
 # Scalar multiplication
@@ -114,39 +114,39 @@ Base.:(*)(x::Real, bd::BDay) = bd * x
 # Division
 Base.:(/)(bd::BDay, x::Real) = BDay(Dates.value(bd) / x, calendar(bd))
 function Base.div(bd1::BDay{C}, bd2::BDay{C}, r::RoundingMode) where {C<:HolidayCalendar}
-    calendar(bd1) == calendar(bd2) || throw(ArgumentError(LazyString(
-        "Cannot compute div of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    calendar(bd1) == calendar(bd2) || throw(ArgumentError(
+        "Cannot compute div of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
     div(Dates.value(bd1), Dates.value(bd2), r)
 end
 function Base.div(bd1::BDay, bd2::BDay, ::RoundingMode)
-    throw(ArgumentError(LazyString(
-        "Cannot compute div of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    throw(ArgumentError(
+        "Cannot compute div of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
 end
 Base.div(bd::BDay, x::Real, r::RoundingMode) = BDay(div(Dates.value(bd), Int64(x), r), calendar(bd))
 
 # mod/rem between BDays (same calendar only)
 function Base.mod(bd1::BDay{C}, bd2::BDay{C}) where {C<:HolidayCalendar}
-    calendar(bd1) == calendar(bd2) || throw(ArgumentError(LazyString(
-        "Cannot compute mod of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    calendar(bd1) == calendar(bd2) || throw(ArgumentError(
+        "Cannot compute mod of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
     return BDay(mod(Dates.value(bd1), Dates.value(bd2)), calendar(bd1))
 end
 
 function Base.mod(bd1::BDay, bd2::BDay)
-    throw(ArgumentError(LazyString(
-        "Cannot compute mod of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    throw(ArgumentError(
+        "Cannot compute mod of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
 end
 
 Base.mod(bd::BDay, x::Real) = BDay(mod(Dates.value(bd), Int64(x)), calendar(bd))
 
 function Base.rem(bd1::BDay{C}, bd2::BDay{C}) where {C<:HolidayCalendar}
-    calendar(bd1) == calendar(bd2) || throw(ArgumentError(LazyString(
-        "Cannot compute rem of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    calendar(bd1) == calendar(bd2) || throw(ArgumentError(
+        "Cannot compute rem of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
     return BDay(rem(Dates.value(bd1), Dates.value(bd2)), calendar(bd1))
 end
 
 function Base.rem(bd1::BDay, bd2::BDay)
-    throw(ArgumentError(LazyString(
-        "Cannot compute rem of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    throw(ArgumentError(
+        "Cannot compute rem of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
 end
 
 Base.rem(bd::BDay, x::Real) = BDay(rem(Dates.value(bd), Int64(x)), calendar(bd))
@@ -159,36 +159,36 @@ Base.zero(bd::BDay) = BDay(0, calendar(bd))
 
 # gcd/lcm between BDays (same calendar only)
 function Base.gcd(bd1::BDay{C}, bd2::BDay{C}) where {C<:HolidayCalendar}
-    calendar(bd1) == calendar(bd2) || throw(ArgumentError(LazyString(
-        "Cannot compute gcd of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    calendar(bd1) == calendar(bd2) || throw(ArgumentError(
+        "Cannot compute gcd of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
     return BDay(gcd(Dates.value(bd1), Dates.value(bd2)), calendar(bd1))
 end
 
 function Base.gcd(bd1::BDay, bd2::BDay)
-    throw(ArgumentError(LazyString(
-        "Cannot compute gcd of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    throw(ArgumentError(
+        "Cannot compute gcd of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
 end
 
 function Base.lcm(bd1::BDay{C}, bd2::BDay{C}) where {C<:HolidayCalendar}
-    calendar(bd1) == calendar(bd2) || throw(ArgumentError(LazyString(
-        "Cannot compute lcm of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    calendar(bd1) == calendar(bd2) || throw(ArgumentError(
+        "Cannot compute lcm of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
     return BDay(lcm(Dates.value(bd1), Dates.value(bd2)), calendar(bd1))
 end
 
 function Base.lcm(bd1::BDay, bd2::BDay)
-    throw(ArgumentError(LazyString(
-        "Cannot compute lcm of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    throw(ArgumentError(
+        "Cannot compute lcm of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
 end
 
-function Base.gcdx(bd1::BDay{C}, bd2::BDay{C}) where {C<:HolidayCalendar} 
-    calendar(bd1) == calendar(bd2) || throw(ArgumentError(LazyString(
-        "Cannot compute gcdx of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+function Base.gcdx(bd1::BDay{C}, bd2::BDay{C}) where {C<:HolidayCalendar}
+    calendar(bd1) == calendar(bd2) || throw(ArgumentError(
+        "Cannot compute gcdx of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
     g, x, y = gcdx(Dates.value(bd1), Dates.value(bd2))
     return (BDay(g, calendar(bd1)), x, y)
 end
 function Base.gcdx(bd1::BDay, bd2::BDay)
-    throw(ArgumentError(LazyString(
-        "Cannot compute gcdx of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))")))
+    throw(ArgumentError(
+        "Cannot compute gcdx of BDay periods with different calendars: $(calendar(bd1)) vs $(calendar(bd2))"))
 end
 
 # Display - need to define both show and print to override Dates.Period defaults

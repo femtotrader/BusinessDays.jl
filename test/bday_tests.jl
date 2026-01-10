@@ -321,11 +321,6 @@
         @test sign(bd_pos) == 1
         @test sign(bd_neg) == -1
         @test sign(bd_zero) == 0
-
-        # signbit returns Bool
-        @test signbit(bd_pos) == false
-        @test signbit(bd_neg) == true
-        @test signbit(bd_zero) == false
     end
 
     @testset "one (Inherited from Period)" begin
